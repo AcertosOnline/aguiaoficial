@@ -1,9 +1,9 @@
-const CACHE_NAME = 'appacertos-cache-v1';
+const CACHE_NAME = 'aguiaoficial-cache-v1';
 const urlsToCache = [
   '/',
-  '/https://www.appacertos.club/',
-  'https://api.appacertos.club/app.js',
-  'https://api.appacertos.club/manifest.json'
+  'https://www.aguia-oficial.com/',
+  'https://api.aguia-oficial.com/app.js',
+  'https://api.aguia-oficial.com/manifest.json'
 ];
 
 // Install the service worker and cache essential files
