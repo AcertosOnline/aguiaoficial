@@ -47,3 +47,4 @@ const pwaBanner = `
 
   // Check at load
   showPWABanner();
+});
