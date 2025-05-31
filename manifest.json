@@ -1,19 +1,19 @@
 {
-  "name": "Acertos Club",
-  "short_name": "Acertos Club",
-  "description": "Adicione Acertos Club na tela inicial do seu celular!",
-  "start_url": "https://www.appacertos.club/",
+  "name": "Águia Oficial",
+  "short_name": "Águia Oficial",
+  "description": "Adicione Águia Oficial na tela inicial do seu celular!",
+  "start_url": "https://www.aguia-oficial.com/",
   "display": "standalone",
   "background_color": "#f3670f",
   "theme_color": "#f3670f",
   "icons": [
     {
-      "src": "https://api.appacertos.club/pwa/192.png",
+      "src": "https://www.aguia-oficial.com/pwa/192.png",
       "sizes": "192x192",
       "type": "image/png"
     },
     {
-      "src": "https://api.appacertos.club/pwa/512.png",
+      "src": "https://www.aguia-oficial.com/pwa/512.png",
       "sizes": "512x512",
       "type": "image/png"
     }
