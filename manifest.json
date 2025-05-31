@@ -4,8 +4,8 @@
   "description": "Adicione Águia Oficial na tela inicial do seu celular!",
   "start_url": "https://www.aguia-oficial.com/",
   "display": "standalone",
-  "background_color": "#f3670f",
-  "theme_color": "#f3670f",
+  "background_color": "#56cf3b",
+  "theme_color": "#56cf3b",
   "icons": [
     {
       "src": "https://api.aguia-oficial.com/pwa/192.png",
