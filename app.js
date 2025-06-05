@@ -1,61 +1,83 @@
 document.addEventListener('DOMContentLoaded', function() {
-  // Inject HTML for PWA "Add to Home Screen" banner with icon and install SVG
-const pwaBanner = `
-    <div id="pwaBanner" style="display: none; position: fixed; bottom: 20px; left: 10px; right: 10px; background: #ffffff; padding: 10px; border-radius: 8px; box-shadow: 0 4px 8px rgba(0,0,0,0.15); z-index: 10000; display: flex; align-items: center; justify-content: center; cursor: pointer;">
-      <img src="https://api.aguia-oficial.com/pwa/512.png" alt="PWA Icon" style="width: 40px; height: 40px; border-radius: 8px; margin-right: 10px;">
-      <span style="font-family: Arial, sans-serif; color: #202020; font-size: 16px; font-weight: bold;">Instalar</span>
-      <img src="https://api.aguia-oficial.com/pwa/install.svg" alt="Install Icon" style="width: 24px; height: 24px; margin-left: 10px; filter: invert(20%) sepia(10%) saturate(1000%) hue-rotate(190deg) brightness(20%);">
-    </div>
-`;
-  document.body.insertAdjacentHTML('beforeend', pwaBanner);
+    // Check if modal has been shown before
+    if (!localStorage.getItem('welcomeModalShown')) {
+        // Create modal elements
+        const modalOverlay = document.createElement('div');
+        modalOverlay.className = 'welcome-modal-overlay';
+        modalOverlay.style.cssText = `
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.5);
+            z-index: 10002;
+            display: none;
+            backdrop-filter: blur(5px);
+        `;
 
-  const pwaBannerEl = document.getElementById('pwaBanner');
+        const modal = document.createElement('div');
+        modal.className = 'welcome-modal-content';
+        modal.style.cssText = `
+            position: fixed;
+            top: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: #ffffff;
+            padding: 20px;
+            border-radius: 8px;
+            max-width: 400px;
+            width: 90%;
+            text-align: center;
+            z-index: 10003;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        `;
 
-  let deferredPrompt;
+        const message = document.createElement('p');
+        message.innerHTML = 'Para jogar no cassino, abra o menu <span style="font-size: 1.2em;">☰</span> e escolha a opção "Jogar cassino"';
+        message.style.cssText = `
+            margin: 20px 0;
+            font-size: 16px;
+            line-height: 1.5;
+            color: #202020;
+            font-family: Arial, sans-serif;
+        `;
 
-  // Handle "beforeinstallprompt"
-  window.addEventListener('beforeinstallprompt', (e) => {
-    e.preventDefault();
-    deferredPrompt = e;
-    showPWABanner();
-  });
+        const okButton = document.createElement('button');
+        okButton.innerHTML = 'OK';
+        okButton.style.cssText = `
+            background: #007bff;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+            margin-top: 10px;
+            font-family: Arial, sans-serif;
+        `;
 
-  // Show banner unless in standalone mode
-  function showPWABanner() {
-    if (window.matchMedia('(display-mode: standalone)').matches || window.navigator.standalone) {
-      pwaBannerEl.style.display = 'none';
-    } else {
-      pwaBannerEl.style.display = 'flex';
-    }
-  }
+        // Append elements
+        modal.appendChild(message);
+        modal.appendChild(okButton);
+        modalOverlay.appendChild(modal);
+        document.body.appendChild(modalOverlay);
 
-  // Make entire banner clickable
-  pwaBannerEl.addEventListener('click', function() {
-    if (deferredPrompt) {
-      deferredPrompt.prompt();
-      deferredPrompt.userChoice.then((choiceResult) => {
-        if (choiceResult.outcome === 'accepted') {
-          console.log('User accepted the PWA prompt');
-        } else {
-          console.log('User dismissed the PWA prompt');
+        // Show modal
+        function showModal() {
+            modalOverlay.style.display = 'flex';
         }
-        deferredPrompt = null;
-        pwaBannerEl.style.display = 'none';
-      });
+
+        // Hide modal and set localStorage
+        function hideModal() {
+            modalOverlay.style.display = 'none';
+            localStorage.setItem('welcomeModalShown', 'true');
+        }
+
+        // Event listeners
+        okButton.addEventListener('click', hideModal);
+
+        // Show modal when page is fully loaded
+        window.addEventListener('load', showModal);
     }
-  });
-
-  // Check at load
-  showPWABanner();
-
-  // Register Service Worker
-  if ('serviceWorker' in navigator) {
-    navigator.serviceWorker.register('/sw.js')
-      .then(function(registration) {
-        console.log('Service Worker registered with scope:', registration.scope);
-      })
-      .catch(function(error) {
-        console.error('Service Worker registration failed:', error);
-      });
-  }
 });
