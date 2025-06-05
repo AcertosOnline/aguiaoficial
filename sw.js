@@ -4,8 +4,8 @@ const urlsToCache = [
   'https://www.aguia-oficial.com/',
   'https://api.aguia-oficial.com/app.js',
   'https://api.aguia-oficial.com/manifest.json',
-  'https://api.aguia-oficial.com/192.png',
-  'https://api.aguia-oficial.com/512.png',
+  'https://api.aguia-oficial.com/pwa/192.png',
+  'https://api.aguia-oficial.com/pwa/512.png',
   'https://api.aguia-oficial.com/banner.webp'
 ];
 
